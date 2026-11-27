@@ -4,10 +4,9 @@ One snapshot is one ASCII file: one row per sample, one whitespace-separated
 column per accelerometer channel. The file name is the recording timestamp,
 e.g. ``2003.10.22.12.06.24``.
 
-The dataset facts encoded here (channel layout, sampling rate) come from the
-dataset description and are NOT yet verified against the files themselves.
-See ``data/README.md`` and run ``scripts/verify_dataset.py`` once the data is
-available.
+File format, samples per file and channel counts were verified against the
+files on 2026-11-27 (see ``data/README.md``). The sampling rate is still the
+documented 20 kHz; the signals point to 20.48 kHz (open point in the README).
 """
 
 from __future__ import annotations
@@ -21,9 +20,11 @@ import pandas as pd
 
 #: Nominal sampling rate stated in the dataset readme.
 #: ASSUMPTION: 20 480 samples are described as a "1-second" snapshot, which
-#: would imply 20.48 kHz. Until this is settled we use the documented 20 kHz.
+#: would imply 20.48 kHz, and the outer race fault line of test 2 also fits
+#: 20.48 kHz better (data/README.md). Until this is settled we use the
+#: documented 20 kHz.
 SAMPLING_RATE_HZ = 20_000.0
-#: Documented number of samples per snapshot.
+#: Number of samples per snapshot (verified for every file).
 SAMPLES_PER_SNAPSHOT = 20_480
 #: Shaft speed of the test rig in revolutions per minute.
 SHAFT_SPEED_RPM = 2000.0
@@ -41,7 +42,8 @@ class TestConfig:
     bearing_channels: dict[int, tuple[int, ...]]
 
 
-#: Channel layouts as documented (unverified, see module docstring).
+#: Channel layouts from the readme; channel counts verified for every file.
+#: Note: ``3rd_test.rar`` extracts to a folder named ``4th_test/txt``.
 TEST_CONFIGS: dict[int, TestConfig] = {
     1: TestConfig("1st_test", 8, {1: (0, 1), 2: (2, 3), 3: (4, 5), 4: (6, 7)}),
     2: TestConfig("2nd_test", 4, {1: (0,), 2: (1,), 3: (2,), 4: (3,)}),
