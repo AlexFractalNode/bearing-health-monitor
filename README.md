@@ -23,6 +23,13 @@ python3.12 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,dl]"
 ```
 
+No `py` launcher (e.g. Python from the Microsoft Store)? Create the venv with
+[uv](https://docs.astral.sh/uv/) instead, then continue with the activation step above:
+
+```powershell
+uv venv --python 3.12 --seed .venv
+```
+
 The `dl` extra pulls in TensorFlow (large download) and is only needed for the autoencoder;
 `pip install -e ".[dev]"` is enough for everything else.
 
