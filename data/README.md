@@ -53,7 +53,7 @@ The loader finds snapshot folders by file name, so the odd folder name does not 
 | Sensors | PCB 353B33 ICP accelerometers on the bearing housings; DAQ card NI 6062E | [R] |
 | Snapshot | one file per snapshot, described as a "1-second" recording | [R] |
 | Samples per file | 20 480 in every file of all three tests | [F] |
-| Sampling rate | readme says 20 kHz; signal analysis points to 20.48 kHz (open point 1) | [R], [A] |
+| Sampling rate | readme says 20 kHz; signal analysis points to 20.48 kHz. Project uses 20 kHz (decision, open point 1) | [R], [A] |
 | File format | ASCII, one row per sample, one column per channel, no header | [F] |
 | Column separator | tab (`\t`), lines end with CRLF (`\r\n`) | [F] |
 | Number format | three decimals, e.g. `-0.022` | [F] |
@@ -103,7 +103,10 @@ The loader finds snapshot folders by file name, so the odd folder name does not 
    236.0 Hz at 20.48 kHz and 230.5 Hz at 20 kHz. The outer race fault frequency of the ZA-2115 at
    2000 rpm is usually quoted as about 236.4 Hz [U, Qiu et al. 2006]. This fits 20.48 kHz unless
    the belt drive slips by 2.5 %. The code still uses the documented 20 kHz
-   (`bearing_monitor.io.SAMPLING_RATE_HZ`); the choice must be made before phase 2.
+   (`bearing_monitor.io.SAMPLING_RATE_HZ`).
+   **Decision (Alex, 2026-11-28):** the project uses the documented **20 kHz**. Fault frequencies
+   computed in phase 2 may therefore appear about 2.5 % lower in the spectra than the
+   theoretical values; frequency bands around them must be wide enough to cover this.
 2. **Which test-1 column is x and which is y** is not stated beyond "two accelerometers for each
    bearing [x- and y-axes]" [R].
 3. **Failure time.** The readme only gives the failed bearing and defect type per test, not a
