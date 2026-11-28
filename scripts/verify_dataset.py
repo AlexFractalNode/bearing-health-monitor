@@ -20,6 +20,7 @@ from bearing_monitor import io
 
 
 def describe(test_dir: Path, full: bool) -> None:
+    """Print file count, time range, intervals and array shapes of one test folder."""
     snapshots = io.list_snapshots(test_dir)
     print(f"\n== {test_dir} ==")
     print(f"files:           {len(snapshots)}")
@@ -53,6 +54,7 @@ def describe(test_dir: Path, full: bool) -> None:
 
 
 def main() -> None:
+    """Parse the command line and describe every snapshot folder below the root."""
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("root", nargs="?", default="data/raw", type=Path)
     parser.add_argument("--full", action="store_true", help="read every file (slow)")
