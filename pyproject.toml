@@ -1,0 +1,68 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bearing-monitor"
+version = "0.1.0"
+description = "Health monitoring of rolling-element bearings on the NASA/IMS run-to-failure vibration dataset."
+readme = "README.md"
+# TensorFlow 2.21 ships Windows wheels for CPython 3.10-3.13 only.
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.13",
+    "pandas>=2.2",
+    "pyarrow>=17",
+    "scikit-learn>=1.5",
+    "matplotlib>=3.9",
+    "seaborn>=0.13",
+    "joblib>=1.4",
+    "fastapi>=0.115",
+    "uvicorn>=0.30",
+    "pydantic>=2.7",
+]
+
+[project.optional-dependencies]
+# Deep-learning stack for the autoencoder (phase 3). Kept optional because it
+# is by far the largest dependency and is not needed for features or baselines.
+dl = ["tensorflow>=2.21,<2.22"]
+dev = [
+    "pytest>=8",
+    "ruff>=0.8",
+    "httpx>=0.27",      # required by fastapi.testclient
+    "ipykernel>=6.29",
+    "notebook>=7.2",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bearing_monitor"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+extend-exclude = ["data"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",  # pycodestyle
+    "F",       # pyflakes
+    "I",       # import sorting
+    "B",       # bugbear
+    "UP",      # pyupgrade
+    "SIM",     # simplifications
+    "NPY",     # numpy-specific rules
+    "D",       # docstrings
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]
+"notebooks/*" = ["D", "E402"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
