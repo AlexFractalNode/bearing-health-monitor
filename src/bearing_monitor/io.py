@@ -5,8 +5,8 @@ column per accelerometer channel. The file name is the recording timestamp,
 e.g. ``2003.10.22.12.06.24``.
 
 File format, samples per file and channel counts were verified against the
-files on 2026-11-27 (see ``data/README.md``). The sampling rate is still the
-documented 20 kHz; the signals point to 20.48 kHz (open point in the README).
+files on 2026-11-27 (see ``data/README.md``). The sampling rate is the
+documented 20 kHz by project decision, although the signals point to 20.48 kHz.
 """
 
 from __future__ import annotations
@@ -21,7 +21,7 @@ import pandas as pd
 #: Nominal sampling rate stated in the dataset readme.
 #: ASSUMPTION: 20 480 samples are described as a "1-second" snapshot, which
 #: would imply 20.48 kHz, and the outer race fault line of test 2 also fits
-#: 20.48 kHz better (data/README.md). Until this is settled we use the
+#: 20.48 kHz better (data/README.md). Decision (2026-11-28): use the
 #: documented 20 kHz.
 SAMPLING_RATE_HZ = 20_000.0
 #: Number of samples per snapshot (verified for every file).

@@ -40,3 +40,14 @@ ruff check .
 ruff format --check .
 pytest
 ```
+
+## Progress
+
+- **Phase 0, data check:** dataset facts verified against the files, see [`data/README.md`](data/README.md).
+- **Phase 1, exploration:** RMS and kurtosis trends over all runs; every failed bearing becomes
+  visible about 2 to 4 days before the end of its test. See [`docs/exploration.md`](docs/exploration.md).
+
+![Failed bearings: RMS and kurtosis over the run](docs/figures/failure_visible.png)
+
+Reproduce the trend tables with `python scripts/compute_trends.py data/raw` (about a minute),
+then run `notebooks/02_trends.ipynb`.
