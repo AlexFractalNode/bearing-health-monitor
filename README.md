@@ -51,3 +51,11 @@ pytest
 
 Reproduce the trend tables with `python scripts/compute_trends.py data/raw` (about a minute),
 then run `notebooks/02_trends.ipynb`.
+- **Phase 2, features:** 23 features per channel and snapshot (time domain, Welch band powers,
+  envelope spectrum around the bearing fault frequencies), tested on synthetic signals. The
+  envelope spectrum identifies both outer race failures. See [`docs/features.md`](docs/features.md).
+
+![Envelope spectrum and envelope features](docs/figures/envelope_features.png)
+
+Reproduce the feature tables with `python scripts/compute_features.py data/raw` (about two
+minutes), then run `notebooks/03_features.ipynb`.
